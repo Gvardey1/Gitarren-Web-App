@@ -1,0 +1,191 @@
+.chord-card {
+  background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.chord-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  border-color: #4ecdc4;
+}
+
+.chord-card.selected {
+  border-color: #4ecdc4;
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.4);
+}
+
+.chord-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.chord-name {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  color: #4ecdc4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.chord-full-name {
+  font-size: 14px;
+  color: #bbb;
+  margin: 5px 0 0 0;
+}
+
+.difficulty-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #1e1e1e;
+  text-transform: uppercase;
+}
+
+.chord-notes {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.notes-label {
+  font-size: 13px;
+  color: #999;
+  font-weight: 600;
+}
+
+.note-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.play-button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.play-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.play-button:active {
+  transform: scale(0.98);
+}
+
+.play-icon {
+  font-size: 18px;
+}
+
+@media (max-width: 560px) {
+  .chord-card {
+    padding: 12px;
+  }
+
+  .chord-name {
+    font-size: 24px;
+  }
+
+  .chord-full-name {
+    font-size: 12px;
+  }
+
+  .difficulty-badge {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  .chord-notes {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .notes-label {
+    font-size: 11px;
+  }
+
+  .note-badge {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+
+  .play-button {
+    padding: 10px;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .play-icon {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 450px) {
+  .chord-card {
+    padding: 10px;
+  }
+
+  .chord-name {
+    font-size: 20px;
+  }
+
+  .chord-full-name {
+    font-size: 10px;
+  }
+
+  .difficulty-badge {
+    padding: 3px 6px;
+    font-size: 8px;
+  }
+
+  .chord-notes {
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .notes-label {
+    font-size: 9px;
+  }
+
+  .note-badge {
+    padding: 2px 6px;
+    font-size: 8px;
+  }
+
+  .play-button {
+    padding: 8px;
+    font-size: 10px;
+    margin-top: 8px;
+  }
+
+  .play-icon {
+    font-size: 12px;
+  }
+}

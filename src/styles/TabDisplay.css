@@ -1,0 +1,154 @@
+.tab-card-wrapper {
+  background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 2px solid transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tab-display-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.tab-tablature {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  min-width: fit-content;
+  padding: 8px;
+  margin-bottom: 10px;
+  background: linear-gradient(to right, #3a2f2a, #2a1f1a);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.tab-string-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.tab-string-label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #f0f0f0;
+  width: 20px;
+  text-align: right;
+}
+
+.tab-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  flex: 1;
+}
+
+.tab-line {
+  position: relative;
+  height: 20px;
+}
+
+.tab-line-bg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, #ddd, #aaa);
+  transform: translateY(-50%);
+}
+
+.tab-notes-row {
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.tab-note-position {
+  flex: 1;
+  min-width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.tab-note-position.tab-empty {
+  visibility: hidden;
+}
+
+.tab-fret-number {
+  font-size: 14px;
+  font-weight: bold;
+  color: #4ecdc4;
+  background: #2a1f1a;
+  padding: 0px 4px;
+  border-radius: 4px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 8px rgba(78, 205, 196, 0.4);
+}
+
+@media (max-width: 768px) {
+  .tab-card-wrapper {
+    padding: 15px;
+  }
+
+  .tab-tablature {
+    padding: 15px;
+  }
+
+  .tab-string-label {
+    font-size: 14px;
+  }
+
+  .tab-lines {
+    gap: 25px;
+  }
+
+  .tab-note-position {
+    min-width: 30px;
+  }
+
+  .tab-fret-number {
+    font-size: 14px;
+    padding: 2px 5px;
+  }
+}
+
+@media (max-width: 560px) {
+  .tab-card-wrapper {
+    padding: 12px;
+  }
+
+  .tab-tablature {
+    padding: 12px;
+  }
+
+  .tab-string-label {
+    font-size: 12px;
+    width: 15px;
+  }
+
+  .tab-lines {
+    gap: 20px;
+  }
+
+  .tab-line {
+    height: 16px;
+  }
+
+  .tab-note-position {
+    min-width: 25px;
+  }
+
+  .tab-fret-number {
+    font-size: 12px;
+    padding: 1px 4px;
+  }
+}
