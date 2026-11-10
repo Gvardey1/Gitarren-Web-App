@@ -42,16 +42,24 @@ def tag_fahr_licht_off():
 # -------------------------
 
 _warn_licht_stop = Event()
+_warn_licht_thread = None
 
 def _warn_licht_loop():
     while not _warn_licht_stop.is_set():
         warn_licht.on()
         sleep(0.5)
         warn_licht.off()
+        sleep(0.5)
+    warn_licht_off()
 
 def warn_licht_on():
+    global _warn_licht_thread
+    if _warn_licht_thread and _warn_licht_thread.is_alive():
+        return
+
     _warn_licht_stop.clear()
-    Thread(target=_warn_licht_loop, daemon=True).start()
+    _warn_licht_thread = Thread(target=_warn_licht_loop, daemon=True).start()
+    _warn_licht_thread.start()
 
 def warn_licht_off():
     _warn_licht_stop.set()
@@ -60,12 +68,14 @@ _blau_licht_stop = Event()
 
 def _blinken_loop():
     while not _blau_licht_stop.is_set():
-        left_blue.blink(on_time=0.1, off_time=0.05, n=2)
-        right_blue.blink(on_time=0.1, off_time=0.05, n=2)
+        left_blue.blink(on_time=0.1, off_time=0.05, n=2, background=True)
+        right_blue.blink(on_time=0.1, off_time=0.05, n=2, background=True)
         sleep(0.5)
         left_blue.blink(on_time=0.1, off_time=0.05, n=2, background=False)
         right_blue.blink(on_time=0.1, off_time=0.05, n=2, background=False)
         sleep(0.1)
+        left_blue.off()
+        right_blue.off()
 
 def blau_licht_on():
     _blau_licht_stop.clear()
