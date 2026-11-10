@@ -1,0 +1,82 @@
+from gpiozero import LED, PWMLED
+from time import sleep
+from threading import Thread, Event
+
+
+ruek_licht = PWMLED(17) 
+tag_fahr_licht = PWMLED(17) 
+right_blue = PWMLED(17) 
+left_blue = PWMLED(27)
+bremsen_licht = PWMLED(27)
+warn_licht = PWMLED(27)
+
+
+# -------------------------
+# Rücklicht
+# -------------------------
+
+def ruek_licht_on():
+    ruek_licht.value = 0.2
+
+def ruek_licht_off():
+    ruek_licht.value = 0
+
+def bremsen_on():
+    bremsen_licht.value = 1
+
+def bremsen_off():
+    bremsen_licht.value = 0
+
+# -------------------------
+# Tagfahrlicht
+# -------------------------
+
+def tag_fahr_licht_on():
+    tag_fahr_licht.value = 0.3
+
+def tag_fahr_licht_off():
+    tag_fahr_licht.value = 0
+
+# -------------------------
+# Warnlicht
+# -------------------------
+
+_warn_licht_stop = Event()
+
+def _warn_licht_loop():
+    while not _warn_licht_stop.is_set():
+        warn_licht.on()
+        sleep(0.5)
+        warn_licht.off()
+
+def warn_licht_on():
+    _warn_licht_stop.clear()
+    Thread(target=_warn_licht_loop, daemon=True).start()
+
+def warn_licht_off():
+    _warn_licht_stop.set()
+
+_blau_licht_stop = Event()
+
+def _blinken_loop():
+    while not _blau_licht_stop.is_set():
+        left_blue.blink(on_time=0.1, off_time=0.05, n=2)
+        right_blue.blink(on_time=0.1, off_time=0.05, n=2)
+        sleep(0.5)
+        left_blue.blink(on_time=0.1, off_time=0.05, n=2, background=False)
+        right_blue.blink(on_time=0.1, off_time=0.05, n=2, background=False)
+        sleep(0.1)
+
+def blau_licht_on():
+    _blau_licht_stop.clear()
+    Thread(target=_blinken_loop, daemon=True).start()
+
+def blau_licht_off():
+    _blau_licht_stop.set()
+
+
+try:
+    while True:
+        sleep(1)
+except KeyboardInterrupt:
+    print("Beendet")
