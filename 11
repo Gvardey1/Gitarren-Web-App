@@ -3,12 +3,12 @@ from time import sleep
 from threading import Thread, Event
 
 
-ruek_licht = PWMLED(17) 
-tag_fahr_licht = PWMLED(17) 
+ruek_licht = PWMLED(22) 
+tag_fahr_licht = PWMLED(23) 
 right_blue = PWMLED(17) 
 left_blue = PWMLED(27)
-bremsen_licht = PWMLED(27)
-warn_licht = PWMLED(27)
+bremsen_licht = PWMLED(24)
+warn_licht = PWMLED(5)
 
 
 # -------------------------
@@ -50,7 +50,7 @@ def _warn_licht_loop():
         sleep(0.5)
         warn_licht.off()
         sleep(0.5)
-    warn_licht_off()
+    warn_licht.off()
 
 def warn_licht_on():
     global _warn_licht_thread
@@ -58,13 +58,14 @@ def warn_licht_on():
         return
 
     _warn_licht_stop.clear()
-    _warn_licht_thread = Thread(target=_warn_licht_loop, daemon=True).start()
+    _warn_licht_thread = Thread(target=_warn_licht_loop, daemon=True)
     _warn_licht_thread.start()
 
 def warn_licht_off():
     _warn_licht_stop.set()
 
 _blau_licht_stop = Event()
+_blau_licht_thread = None
 
 def _blinken_loop():
     while not _blau_licht_stop.is_set():
@@ -78,15 +79,28 @@ def _blinken_loop():
         right_blue.off()
 
 def blau_licht_on():
+    global _blau_licht_thread
+    if _blau_licht_thread and _blau_licht_thread.is_alive():
+        return
+    
     _blau_licht_stop.clear()
-    Thread(target=_blinken_loop, daemon=True).start()
+    _blau_licht_thread = Thread(target=_blinken_loop, daemon=True)
+    _blau_licht_thread.start()
 
 def blau_licht_off():
     _blau_licht_stop.set()
 
+def sauber():
+    blau_licht_off()
+    warn_licht_off()
+    ruek_licht_off()
+    bremsen_off()
+    tag_fahr_licht_off()
 
-try:
-    while True:
-        sleep(1)
-except KeyboardInterrupt:
-    print("Beendet")
+if __name__ == "__main__":
+    try:
+        warn_licht_on()
+        while True:
+            sleep(1)
+    except KeyboardInterrupt:
+        sauber()
